@@ -1,0 +1,58 @@
+-- atividade 7
+Create database Loja_eletronicos;
+use Loja_eletronicos;
+
+create table produtos (
+id_produto int auto_increment primary key,
+nome varchar (200),
+preco decimal (10, 2),
+estoque int
+);
+
+create table fornecedores (
+id_fornecedor int auto_increment primary key,
+nome varchar (200),
+contato varchar(20),
+id_produto int,
+foreign key (id_produto) references produtos(id_produto)
+);
+
+create table compras (
+id_compra int auto_increment primary key,
+id_fornecedor int,
+data_compra datetime,
+foreign key (id_fornecedor) references fornecedores(id_fornecedor)
+);
+
+create table itens (
+id_item int auto_increment primary key,
+id_compra int,
+id_produto int, 
+quantidade int,
+foreign key (id_compra) references compras(id_compra),
+foreign key (id_produto) references produtos(id_produto)
+);
+
+insert into fornecedores (nome, contato, id_produto) values
+('Luiz', '27 89237837', 3),
+('Marcia','20 98236726', 1),
+('Sergio', '89 8232198', 2);
+
+insert into compras (id_fornecedor) values
+(2),
+(1),
+(3);
+
+insert into produtos (nome, preco, estoque) values
+('celular', 1200, 34),
+('computador', 5650, 28),
+('tablet', 990, 51);
+
+insert into itens (id_compra, id_produto, quantidade) values
+(2, 1, 20),
+(1, 3, 38),
+(3, 2, 10);
+
+select id_produto from fornecedores;
+
+select quantidade from itens;
